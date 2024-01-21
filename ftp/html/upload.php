@@ -6,8 +6,8 @@
   <link rel="stylesheet" href="css/style.css">
 <head>
             <div class="logo">FTP</div>
-            <li>นาย ติณณภพ สีหาชาลี</li>
-            <li>นาย หัสดินทร์ นะเรืองรัมย์</li>
+            <li>dfgfd-</li>
+            <li>---</li>
 </head>
        <body>
        <header>
@@ -17,8 +17,8 @@
     if (isset($_POST['submit'])) {
       // FTP connection settings
       $ftp_server = "ftp";
-      $ftp_username = "bru";
-      $ftp_password = "363";
+      $ftp_username = "IT";
+      $ftp_password = "1234";
 
       // connect to FTP server
       $conn_id = ftp_connect($ftp_server) or die("Could not connect to FTP server");
@@ -28,7 +28,7 @@
         // get the uploaded file
         $file = $_FILES['file']['name'];
         $file_tmp = $_FILES['file']['tmp_name'];
-        $remote_file = 'C:\Users\acer\OneDrive\เดสก์ท็อป\Max' . $file;
+        $remote_file = 'C:/User-KK33/OneDrive/Desktop/FTP' . $file;
 
         // upload the file
         if (!empty($file)) {
