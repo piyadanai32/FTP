@@ -1,66 +1,56 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <body>
   <title>Upload a file to FTP server</title>
-  <link rel="stylesheet" href="css/style.css">
-<head>
-            <div class="logo">FTP</div>
-            <li>dfgfd-</li>
-            <li>---</li>
 </head>
-       <body>
-       <header>
-        <nav>
-        <ul>
-  <?php
-    if (isset($_POST['submit'])) {
-      // FTP connection settings
-      $ftp_server = "ftp";
-      $ftp_username = "IT";
-      $ftp_password = "1234";
+<body>
+  <header>
+    <!-- <div class="logo">FTP</div> -->
+    <nav>
+      <ul>
+        <?php
+          if (isset($_POST['submit'])) {
+            // FTP connection settings
+            $ftp_server = "ftp";
+            $ftp_username = "IT";
+            $ftp_password = "1234";
 
-      // connect to FTP server
-      $conn_id = ftp_connect($ftp_server) or die("Could not connect to FTP server");
+            // connect to FTP server
+            $conn_id = ftp_connect($ftp_server) or die("Could not connect to FTP server");
 
-      // login to FTP server
-      if (@ftp_login($conn_id, $ftp_username, $ftp_password)) {
-        // get the uploaded file
-        $file = $_FILES['file']['name'];
-        $file_tmp = $_FILES['file']['tmp_name'];
-        $remote_file = 'C:/User-KK33/OneDrive/Desktop/FTP' . $file;
+            // login to FTP server
+            if (@ftp_login($conn_id, $ftp_username, $ftp_password)) {
+              // get the uploaded file
+              $file = $_FILES['file']['name'];
+              $file_tmp = $_FILES['file']['tmp_name'];
 
-        // upload the file
-        if (!empty($file)) {
-          // อัปโหลดไฟล์ไปยัง FTP server
-            if (ftp_put($conn_id, $file, $file_tmp, FTP_BINARY)) {
-              echo "<script>alert('อัพโหลดไฟล์เรียบร้อยแล้ว');</script>";
+              // upload the file
+              if (!empty($file)) {
+                // อัปโหลดไฟล์ไปยัง FTP server
+                if (ftp_put($conn_id, $file, $file_tmp, FTP_BINARY)) {
+                  echo "<script>alert('อัพโหลดไฟล์เรียบร้อยแล้ว');</script>";
+                } else {
+                  echo "<script>alert('เกิดข้อผิดพลาดขณะอัพโหลดไฟล์');</script>";
+                }
+              } else {
+                echo "<script>alert('กรุณาเลือกไฟล์ที่ต้องการอัปโหลด');</script>";
+              }
             } else {
-              echo "<script>alert('เกิดข้อผิดพลาดขณะอัพโหลดไฟล์');</script>";
+              echo "Filename cannot be empty";
             }
-        } else {
-          echo "<script>alert('กรุณาเลือกไฟล์ที่ต้องการอัปโหลด');</script>";
-        }
-      } else {
-        echo "Filename cannot be empty";
-      }
-      // close the FTP connection
-      ftp_close($conn_id);
-    }
-  ?>
+            // close the FTP connection
+            ftp_close($conn_id);
+          }
+        ?>
+      </ul>
+    </nav>
+  </header>
+
   <form method="post" enctype="multipart/form-data">
     <input type="file" name="file">
     <input type="submit" name="submit" value="อัพโหลด">
   </form>
-  </ul>
-  </nav>
-  </header>
-  </body>
-</html>
-
-<caption>
-<h1>สาขาเทคโนโลยีสารสนเทศ</h1>
-</caption>
-
+  
+  <p>กรุณาเลือกไฟล์ที่ต้องการ UPLOAD</p>
 </body>
-
+</html>
