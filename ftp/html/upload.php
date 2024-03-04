@@ -1,33 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Upload a file to FTP server</title>
-</head>
-<body>
-  <header>
-    <!-- <div class="logo">FTP</div> -->
-    <nav>
-      <ul>
-        <?php
-          if (isset($_POST['submit'])) {
-            // FTP connection settings
-            $ftp_server = "ftp";
-            $ftp_username = "IT";
-            $ftp_password = "1234";
+<h2>อัปโหลดไฟล์ไปยัง Server</h2>
+<?php
+    if (isset($_POST['submit'])) {
+        // กำหนดข้อมูลสำหรับเชื่อมต่อ FTP
+        $ftp_server = "ftp";
+        $ftp_username = "IT";
+        $ftp_password = "1234";
 
-            // connect to FTP server
-            $conn_id = ftp_connect($ftp_server) or die("Could not connect to FTP server");
+        // เชื่อมต่อ FTP server
+        $ftp_conn = ftp_connect($ftp_server) or die("Could not connect to FTP server");
 
-            // login to FTP server
-            if (@ftp_login($conn_id, $ftp_username, $ftp_password)) {
-              // get the uploaded file
-              $file = $_FILES['file']['name'];
-              $file_tmp = $_FILES['file']['tmp_name'];
+        // เข้าสู่เซิร์ฟเวอร์ FTP
+        if (@ftp_login($ftp_conn, $ftp_username, $ftp_password)) {
+            // รับไฟล์ที่อัพโหลด
+            $file = $_FILES['file']['name'];
+            $file_tmp = $_FILES['file']['tmp_name'];
 
-              // upload the file
+              //อัพโหลดไฟล์
               if (!empty($file)) {
                 // อัปโหลดไฟล์ไปยัง FTP server
-                if (ftp_put($conn_id, $file, $file_tmp, FTP_BINARY)) {
+                if (ftp_put($ftp_conn, $file, $file_tmp, FTP_BINARY)) {
                   echo "<script>alert('อัพโหลดไฟล์เรียบร้อยแล้ว');</script>";
                 } else {
                   echo "<script>alert('เกิดข้อผิดพลาดขณะอัพโหลดไฟล์');</script>";
@@ -39,12 +30,9 @@
               echo "Filename cannot be empty";
             }
             // close the FTP connection
-            ftp_close($conn_id);
+            ftp_close($ftp_conn);
           }
-        ?>
-      </ul>
-    </nav>
-  </header>
+?>
 
   <form method="post" enctype="multipart/form-data">
     <input type="file" name="file">
@@ -52,5 +40,3 @@
   </form>
   
   <p>กรุณาเลือกไฟล์ที่ต้องการ UPLOAD</p>
-</body>
-</html>

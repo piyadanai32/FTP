@@ -1,26 +1,27 @@
 version: '2'
 services:
   ftp:
-    image: stilliard/pure-ftpd:hardened
+    image: stilliard/pure-ftpd:hardened  #image ที่จะใช้สร้าง container สำหรับ FTP server
     ports:
-      - "21:21"
-      - "30000-30009:30000-30009"
+      - "21:21" #แมพพอร์ต 21 เพื่อเชื่อมต่อ FTP server 
+      - "30000-30009:30000-30009" # พอร์ตสำหรับติดต่อดึงไฟล์
     volumes:
-      - "./data:/home/IT"
-      - "./passwd:/etc/pure-ftpd/passwd"
+      - "./data:/home/IT"                #สร้างโฟลเดอร์ data บนเครื่องhost เข้ากับ container
+      - "./passwd:/etc/pure-ftpd/passwd" #สร้างโฟลเดอร์ passwd บนเครื่องhost เข้ากับ container
     environment:
-      FTP_USER_NAME: IT
-      FTP_USER_PASS: 1234
-      FTP_USER_HOME: /home/IT
+      FTP_USER_NAME: IT                  # กำหนดชื่อผู้ใช้ IT
+      FTP_USER_PASS: 1234                # กำหนดรหัสผ่าน 1234
+      FTP_USER_HOME: /home/IT            # ให้สิทธิ์เข้าถึงจัดการ ให้แก่ IT
     command: /run.sh pure-ftpd  -l puredb:/etc/pure-ftpd/pureftpd.pdb -E -j -R -P localhost -s -A -j -Z -H -4 -E -R -X -x  
+    # กำหนดคำสั่งเริ่มต้นสำหรับ container ของ FTP server
 
   web:
-    image: php:7.4-apache
+    image: php:7.4-apache # ระบุ image ที่จะใช้สร้าง container สำหรับ web server
     volumes:
-      - "./html:/var/www/html"
+      - "./html:/var/www/html" # Mount ไดเรกทอรี "./html" บนเครื่อง host เข้ากับ /var/www/html ใน container
     ports:
-      - "8080:80" 
+      - "8080:80" # แมพพอร์ต 8080 ของเครื่อง host เข้ากับพอร์ต 80 ของ container เพื่อเปิดเว็บ
     environment:
-      FTP_HOST: "ftp"
-      FTP_USER_NAME: "ftpuser"
-      FTP_USER_PASS: "ftppass"
+      FTP_HOST: "ftp" # กำหนดชื่อโฮสต์ของ FTP server เป็น "ftp" เพื่อให้ container web server สามารถเชื่อมต่อ FTP ได้
+      FTP_USER_NAME: "ftpuser" # กำหนดชื่อผู้ใช้ FTP เป็น "ftpuser" เพื่อให้ container web server สามารถเข้าสู่ระบบ FTP ได้
+      FTP_USER_PASS: "ftppass" # กำหนดรหัสผ่าน FTP เป็น "ftppass" เพื่อให้ container web server สามารถเข้าสู่ระบบ FTP ได้
