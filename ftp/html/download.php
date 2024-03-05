@@ -45,7 +45,7 @@ if ($ftp_conn) {
 
         // แสดงลิงก์ไปยังไฟล์ทั้งหมดในเซิร์ฟเวอร์ FTP
         echo "<h2>ไฟล์ทั้งหมดใน Server</h2>";
-        echo "<font face='Arial' size='6'>";
+        echo "<font face='Arial' size='3'>";
         echo "<ul>";
         foreach ($file_list as $file) {
             echo "<li><a href=\"download.php?file=$file\"> $file</a></li>";
@@ -58,7 +58,6 @@ if ($ftp_conn) {
     echo "Error: FTP connection failed";
 }
 ?>
-<!-- HTML ส่วนของปุ่มดาวน์โหลด -->
 <body>
     <b><font face = "Arial" size = "5"  >คลิกที่ไฟล์เพื่อดาวน์โหลด</font>
 </body>

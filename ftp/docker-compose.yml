@@ -23,5 +23,5 @@ services:
       - "8080:80" # แมพพอร์ต 8080 ของเครื่อง host เข้ากับพอร์ต 80 ของ container เพื่อเปิดเว็บ
     environment:
       FTP_HOST: "ftp" # กำหนดชื่อโฮสต์ของ FTP server เป็น "ftp" เพื่อให้ container web server สามารถเชื่อมต่อ FTP ได้
-      FTP_USER_NAME: "ftpuser" # กำหนดชื่อผู้ใช้ FTP เป็น "ftpuser" เพื่อให้ container web server สามารถเข้าสู่ระบบ FTP ได้
-      FTP_USER_PASS: "ftppass" # กำหนดรหัสผ่าน FTP เป็น "ftppass" เพื่อให้ container web server สามารถเข้าสู่ระบบ FTP ได้
+      FTP_USER_NAME: "IT" # กำหนดชื่อผู้ใช้ FTP เป็น "IT" เพื่อให้ container web server สามารถเข้าสู่ระบบ FTP ได้
+      FTP_USER_PASS: "1234" # กำหนดรหัสผ่าน FTP เป็น "1234" เพื่อให้ container web server สามารถเข้าสู่ระบบ FTP ได้
